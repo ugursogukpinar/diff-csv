@@ -62,7 +62,8 @@ def create_sqlite_table(db, csv_file_path, table_name):
         'columns': csvfile['columns']
     }
 
-if __name__ == '__main__':
+
+def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('old_csv',  type=str, help='Path of old csv file')
@@ -71,3 +72,7 @@ if __name__ == '__main__':
     parser.add_argument('--based-on', dest='based_on', nargs='+')
     args = parser.parse_args()
     get_diff(args.old_csv, args.new_csv, primary_key=args.primary_key, based_on=args.based_on)
+
+
+if __name__ == '__main__':
+    main()
