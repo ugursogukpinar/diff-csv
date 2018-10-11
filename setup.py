@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     entry_points={
         "console_scripts": [
-            "diff-csv = diff-csv.main:main",
+            "diffcsv = diffcsv.main:main",
         ],
     },
     license="LICENSE.txt",

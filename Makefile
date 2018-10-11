@@ -5,7 +5,7 @@ dev:
 
 # auto correct indentation issues
 fix:
-	autopep8 diff-csv --recursive --in-place
+	autopep8 diffcsv --recursive --in-place
 
 test:
 	pytest --pep8 --cov -s
