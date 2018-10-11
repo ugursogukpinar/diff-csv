@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="csv2arff",
+    name="diffcsv",
     version="0.1",
     author=u"Uğur Soğukpınar",
     author_email="sogukpinar.ugur@gmail.com",
