@@ -2,8 +2,8 @@ import sys
 import csv
 import argparse
 
-import read_csv
-import database
+from . import read_csv
+from . import database
 
 '''
 It's created to find differences between two csv files  
