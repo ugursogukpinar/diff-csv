@@ -2,14 +2,14 @@ import sys
 import csv
 import argparse
 
-from read_csv import read_csv
-from database import Sqlite
+import read_csv
+import database
 
 '''
 It's created to find differences between two csv files  
 '''
 def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on = []):
-    db = Sqlite()
+    db = database.Sqlite()
     create_sqlite_table(db, old_csv_file_path, 'old_csv')
     new_csv_file = create_sqlite_table(db, new_csv_file_path, 'new_csv')
 
@@ -55,7 +55,7 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on 
         writer.writerow(list(row) + ['UPDATED'])
 
 def create_sqlite_table(db, csv_file_path, table_name):
-    csvfile = read_csv(csv_file_path)
+    csvfile = read_csv.read_csv(csv_file_path)
     db.create_table(table_name, csvfile['columns'])
     db.insert_rows(table_name, csvfile['columns'], csvfile['data'])
     return {
