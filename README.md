@@ -20,8 +20,8 @@ $ pip install diffcsv
 
 ```
 diffcsv [-h] [--primary-key PRIMARY_KEY]
-        [--based-on BASED_ON [BASED_ON ...]]
-        old_csv new_csv
+               [--based-on BASED_ON [BASED_ON ...]] [--delimiter DELIMITER]
+               old_csv new_csv
 
 positional arguments:
   old_csv               Path of old csv file
@@ -30,8 +30,10 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --primary-key PRIMARY_KEY
-                        Foreign key between two csv files
+                        Common key of two csv files
   --based-on BASED_ON [BASED_ON ...]
+  --delimiter DELIMITER
+                        Delimiter of csv files
 ```
 
 Example: 
