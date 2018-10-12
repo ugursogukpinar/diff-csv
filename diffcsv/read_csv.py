@@ -1,9 +1,7 @@
 import csv
 import sys
 
-'''
-It reads a csv file and returns as an object
-'''
+
 def read_csv(file_path, **kwargs):
     with open(file_path, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter = kwargs.get('delimitter', ','))

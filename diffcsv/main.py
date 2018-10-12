@@ -2,18 +2,18 @@ import sys
 import csv
 import argparse
 
-from . import read_csv
-from . import database
+from diffcsv.read_csv import read_csv
+from diffcsv.database import Sqlite
 
 '''
 It's created to find differences between two csv files  
 '''
-def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on = []):
-    db = database.Sqlite()
-    create_sqlite_table(db, old_csv_file_path, 'old_csv')
+def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on = [], delimiter=','):
+    db = Sqlite()
+    create_sqlite_table(db, old_csv_file_path, 'old_csv', delimiter=delimiter)
     new_csv_file = create_sqlite_table(db, new_csv_file_path, 'new_csv')
 
-    writer = csv.writer(sys.stdout, delimiter=',', quoting=csv.QUOTE_ALL, lineterminator='\r')
+    writer = csv.writer(sys.stdout, delimiter=delimiter, quoting=csv.QUOTE_ALL)
     
     # Print new csv file header first
     columns = new_csv_file['columns']
@@ -54,8 +54,8 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on 
     for row in altered_rows:
         writer.writerow(list(row) + ['UPDATED'])
 
-def create_sqlite_table(db, csv_file_path, table_name):
-    csvfile = read_csv.read_csv(csv_file_path)
+def create_sqlite_table(db, csv_file_path, table_name, delimiter=','):
+    csvfile = read_csv(csv_file_path, delimiter=delimiter)
     db.create_table(table_name, csvfile['columns'])
     db.insert_rows(table_name, csvfile['columns'], csvfile['data'])
     return {
@@ -68,8 +68,9 @@ def main():
 
     parser.add_argument('old_csv',  type=str, help='Path of old csv file')
     parser.add_argument('new_csv', type=str, help='Path of new csv file')
-    parser.add_argument('--primary-key', type=str, help='Foreign key between two csv files')
+    parser.add_argument('--primary-key', type=str, help='Common key of two csv files')
     parser.add_argument('--based-on', dest='based_on', nargs='+')
+    parser.add_argument('--delimiter', type=str, help='Delimiter of csv files')
     args = parser.parse_args()
     get_diff(args.old_csv, args.new_csv, primary_key=args.primary_key, based_on=args.based_on)
 
