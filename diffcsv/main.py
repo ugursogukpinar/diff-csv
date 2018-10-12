@@ -72,7 +72,7 @@ def main():
     parser.add_argument('--based-on', dest='based_on', nargs='+')
     parser.add_argument('--delimiter', type=str, help='Delimiter of csv files')
     args = parser.parse_args()
-    get_diff(args.old_csv, args.new_csv, primary_key=args.primary_key, based_on=args.based_on)
+    get_diff(args.old_csv, args.new_csv, primary_key=args.primary_key, based_on=args.based_on, delimiter=args.delimiter)
 
 
 if __name__ == '__main__':
