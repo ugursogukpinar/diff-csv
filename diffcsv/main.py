@@ -12,7 +12,6 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on 
     db = Sqlite()
     create_sqlite_table(db, old_csv_file_path, 'old_csv', delimiter=delimiter)
     new_csv_file = create_sqlite_table(db, new_csv_file_path, 'new_csv')
-
     writer = csv.writer(sys.stdout, delimiter=delimiter, quoting=csv.QUOTE_ALL)
     
     # Print new csv file header first
@@ -70,7 +69,7 @@ def main():
     parser.add_argument('new_csv', type=str, help='Path of new csv file')
     parser.add_argument('--primary-key', type=str, help='Common key of two csv files')
     parser.add_argument('--based-on', dest='based_on', nargs='+')
-    parser.add_argument('--delimiter', type=str, help='Delimiter of csv files')
+    parser.add_argument('--delimiter', type=str, help='Delimiter of csv files', default=',')
     args = parser.parse_args()
     get_diff(args.old_csv, args.new_csv, primary_key=args.primary_key, based_on=args.based_on, delimiter=args.delimiter)
 
