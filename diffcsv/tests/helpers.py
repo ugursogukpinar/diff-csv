@@ -1,9 +1,10 @@
 import csv
+import os
 
 from faker import Faker
 
 
-def generate_random_csv(file_path, length=100, change_range=5):
+def generate_random_csv(old_file_path, length=100, change_range=5):
     """
 
     This method generates csv file which has
@@ -18,11 +19,11 @@ def generate_random_csv(file_path, length=100, change_range=5):
     """
 
     myFactory = Faker()
-    file_path_2 = file_path + '_v2'
+    new_file_path = old_file_path + '_v2'
     generate_count = 0
 
-    with open(file_path, 'w') as fp_old_csv_file:
-        with open(file_path_2, 'w') as fp_new_csv_file:
+    with open(old_file_path, 'w') as fp_old_csv_file:
+        with open(new_file_path, 'w') as fp_new_csv_file:
 
             old_csv_file = csv.writer(fp_old_csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             new_csv_file = csv.writer(fp_new_csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -39,12 +40,12 @@ def generate_random_csv(file_path, length=100, change_range=5):
                 if generate_count < change_range:
                     # Deleted
                     pass
-                elif change_range <= generate_count < 2 * change_range:
+                elif change_range <= generate_count < 2* change_range:
                     # Updated
-                    key_2 = myFactory.random_number()
+                    key_2 = key = myFactory.random_number()
                     value_2 = myFactory.word()
                     new_csv_file.writerow([id, key_2, value_2, created_at])
-                elif 2 * change_range <= generate_count < 3 * change_range:
+                elif 2 * change_range <= generate_count < 3 *change_range:
                     # Inserted
                     new_csv_file.writerow([id + length, key, value, created_at])
                     new_csv_file.writerow([id, key, value, created_at])
@@ -53,4 +54,4 @@ def generate_random_csv(file_path, length=100, change_range=5):
 
                 generate_count += 1
 
-    return file_path, file_path_2
+    return old_file_path, new_file_path

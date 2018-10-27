@@ -9,7 +9,7 @@ from diffcsv.main import get_diff
 class TestDiffCsv(TestCase):
 
     def setUp(self):
-        self.change_counts = 15
+        self.change_counts = 5
         self.old_csv_file, self.new_csv_file = generate_random_csv('/tmp/diff_csv', change_range=self.change_counts)
 
     def test_get_device_class(self):
