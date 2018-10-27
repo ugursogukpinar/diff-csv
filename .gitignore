@@ -4,3 +4,4 @@ diffcsv/__pycache__
 diffcsv.egg-info/
 build/
 dist/
+.idea
