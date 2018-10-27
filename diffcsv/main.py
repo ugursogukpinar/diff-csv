@@ -16,7 +16,7 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key='ID', based_on=[]
     create_sqlite_table(db, old_csv_file_path, 'old_csv', delimiter=delimiter)
     new_csv_file = create_sqlite_table(db, new_csv_file_path, 'new_csv')
     writer = csv.writer(output_file, delimiter=delimiter, quoting=csv.QUOTE_ALL)
-
+    
     # Print new csv file header first
     columns = new_csv_file['columns']
     columns.append('DIFF_STATUS')
@@ -43,7 +43,7 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key='ID', based_on=[]
         writer.writerow(list(row) + ['INSERTED'])
 
     if not len(based_on):
-        based_on = new_csv_file['columns']
+        based_on = new_csv_file['columns'][0:-1] # Exclude DIFF_STATUS
 
     compare_criteria = ['oc.{0} != nc.{0}'.format(based) for based in based_on]
 
