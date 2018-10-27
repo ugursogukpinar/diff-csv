@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ugursogukpinar/diff-csv.svg?branch=master)](https://travis-ci.org/ugursogukpinar/diff-csv)
+
 # diffcsv
 
 It finds differences between two version of a csv file which are built with same structure.
