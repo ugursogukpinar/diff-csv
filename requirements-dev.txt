@@ -1,6 +1,8 @@
 mock
 pytest
 pytest-cov
-pytest-pep8
+pytest-
+
 autopep8
 flake8
+faker
