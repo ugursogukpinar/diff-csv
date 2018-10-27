@@ -1,7 +1,10 @@
+.idea
+#IDE
+.idea
 .vscode
-data
-diffcsv/__pycache__
+
+## Python
+__pycache__
 diffcsv.egg-info/
 build/
 dist/
-.idea

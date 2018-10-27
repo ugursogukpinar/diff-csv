@@ -1,18 +1,15 @@
 import csv
 import os
 
-from unittest import TestCase, main
-from tests.helpers import generate_random_csv
+from unittest import TestCase
 
+from tests.helpers import generate_random_csv
 from diffcsv.main import get_diff
 
 class TestDiffCsv(TestCase):
-
-    def setUp(self):
+    def test_five_difference_for_each_diff_type(self):
         self.change_counts = 5
         self.old_csv_file, self.new_csv_file = generate_random_csv('/tmp/diff_csv', change_range=self.change_counts)
-
-    def test_get_device_class(self):
 
         output_file = '/tmp/output.csv'
         with open(output_file, 'w') as f_output:
@@ -36,6 +33,3 @@ class TestDiffCsv(TestCase):
         os.remove(self.old_csv_file)
         os.remove(self.new_csv_file)
         os.remove(output_file)
-
-if __name__ == '__main__':
-    main()
