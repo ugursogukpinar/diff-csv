@@ -18,38 +18,39 @@ def generate_random_csv(file_path, length=100, change_range=5):
     """
 
     myFactory = Faker()
-    file_v2 = file_path + '_v2'
+    file_path_2 = file_path + '_v2'
     generate_count = 0
 
-    with open(file_path, 'w') as csv_file:
-        with open(file_v2, 'w') as csv_file_2:
+    with open(file_path, 'w') as fp_old_csv_file:
+        with open(file_path_2, 'w') as fp_new_csv_file:
 
-            csv_file_v1 = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            csv_file_v2 = csv.writer(csv_file_2, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            csv_file_v1.writerow(['ID','KEY','VALUE','CREATED_AT'])
-            csv_file_v2.writerow(['ID','KEY','VALUE','CREATED_AT'])
+            old_csv_file = csv.writer(fp_old_csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            new_csv_file = csv.writer(fp_new_csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            old_csv_file.writerow(['ID','KEY','VALUE','CREATED_AT'])
+            new_csv_file.writerow(['ID','KEY','VALUE','CREATED_AT'])
 
-            for row in range(length):
+            for row in range(1,length):
                 id = row
                 key = myFactory.random_number()
                 value = myFactory.word()
                 created_at = myFactory.date_object()
-                csv_file_v1.writerow([id, key, value, created_at])
+                old_csv_file.writerow([id, key, value, created_at])
 
-                if generate_count < change_range + 1:
+                if generate_count < change_range:
                     # Deleted
                     pass
-                elif generate_count < change_range + 6:
+                elif change_range <= generate_count < 2 * change_range:
                     # Updated
                     key_2 = myFactory.random_number()
                     value_2 = myFactory.word()
-                    csv_file_v2.writerow([id, key_2, value_2, created_at])
-                elif generate_count < change_range + 11:
+                    new_csv_file.writerow([id, key_2, value_2, created_at])
+                elif 2 * change_range <= generate_count < 3 * change_range:
                     # Inserted
-                    csv_file_v2.writerow([id + length, key, value, created_at])
+                    new_csv_file.writerow([id + length, key, value, created_at])
+                    new_csv_file.writerow([id, key, value, created_at])
                 else:
-                    csv_file_v2.writerow([id, key, value, created_at])
+                    new_csv_file.writerow([id, key, value, created_at])
 
                 generate_count += 1
 
-    return file_path, file_v2
+    return file_path, file_path_2
