@@ -1,7 +1,1 @@
-mock
-pytest
-pytest-cov
-pytest
-autopep8
-flake8
 faker
