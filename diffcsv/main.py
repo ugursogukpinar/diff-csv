@@ -8,12 +8,15 @@ from diffcsv.database import Sqlite
 '''
 It's created to find differences between two csv files  
 '''
-def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on = [], delimiter=','):
+
+
+def get_diff(old_csv_file_path, new_csv_file_path, primary_key='ID', based_on=[], delimiter=',',
+             output_file=sys.stdout):
     db = Sqlite()
     create_sqlite_table(db, old_csv_file_path, 'old_csv', delimiter=delimiter)
     new_csv_file = create_sqlite_table(db, new_csv_file_path, 'new_csv')
-    writer = csv.writer(sys.stdout, delimiter=delimiter, quoting=csv.QUOTE_ALL)
-    
+    writer = csv.writer(output_file, delimiter=delimiter, quoting=csv.QUOTE_ALL)
+
     # Print new csv file header first
     columns = new_csv_file['columns']
     columns.append('DIFF_STATUS')
@@ -41,7 +44,7 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on 
 
     if not len(based_on):
         based_on = new_csv_file['columns']
-    
+
     compare_criteria = ['oc.{0} != nc.{0}'.format(based) for based in based_on]
 
     altered_rows = db.execute('''
@@ -52,6 +55,7 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key = 'ID', based_on 
 
     for row in altered_rows:
         writer.writerow(list(row) + ['UPDATED'])
+
 
 def create_sqlite_table(db, csv_file_path, table_name, delimiter=','):
     csvfile = read_csv(csv_file_path, delimiter=delimiter)
@@ -65,7 +69,7 @@ def create_sqlite_table(db, csv_file_path, table_name, delimiter=','):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('old_csv',  type=str, help='Path of old csv file')
+    parser.add_argument('old_csv', type=str, help='Path of old csv file')
     parser.add_argument('new_csv', type=str, help='Path of new csv file')
     parser.add_argument('--primary-key', type=str, help='Common key of two csv files')
     parser.add_argument('--based-on', dest='based_on', nargs='+')
