@@ -1,5 +1,4 @@
 import csv
-import os
 
 from faker import Faker
 
@@ -27,6 +26,8 @@ def generate_random_csv(file_path, length=100, change_range=5):
 
             csv_file_v1 = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             csv_file_v2 = csv.writer(csv_file_2, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            csv_file_v1.writerow(['ID','KEY','VALUE','CREATED_AT'])
+            csv_file_v2.writerow(['ID','KEY','VALUE','CREATED_AT'])
 
             for row in range(length):
                 id = row
@@ -40,7 +41,7 @@ def generate_random_csv(file_path, length=100, change_range=5):
                     pass
                 elif generate_count < change_range + 6:
                     # Updated
-                    key_2 = key = myFactory.random_number()
+                    key_2 = myFactory.random_number()
                     value_2 = myFactory.word()
                     csv_file_v2.writerow([id, key_2, value_2, created_at])
                 elif generate_count < change_range + 11:
@@ -51,4 +52,4 @@ def generate_random_csv(file_path, length=100, change_range=5):
 
                 generate_count += 1
 
-    return csv_file_v1, csv_file_v2
+    return file_path, file_v2
