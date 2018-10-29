@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="diffcsv",
-    version="0.6",
+    version="1.0",
     author=u"Uğur Soğukpınar",
     author_email="sogukpinar.ugur@gmail.com",
     url="https://github.com/ugursogukpinar/diff-csv",
@@ -14,7 +14,7 @@ setup(
     },
     license="LICENSE.txt",
     description="Find difference between two large csv files",
-    long_description=open("README.rst").read(),
+    long_description=open("README.md").read(),
     install_requires=list(filter(None, [
     ])),
     classifiers=[
