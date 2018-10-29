@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/ugursogukpinar/diff-csv.svg?branch=master)](https://travis-ci.org/ugursogukpinar/diff-csv)
+
+![PyPI](https://img.shields.io/pypi/v/diffcsv.svg) [![Build Status](https://travis-ci.org/ugursogukpinar/diff-csv.svg?branch=master)](https://travis-ci.org/ugursogukpinar/diff-csv)
 
 # diffcsv
 
