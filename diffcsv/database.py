@@ -8,6 +8,8 @@ class Sqlite(object):
 
 
     def create_table(self, table_name, columns):
+        columns = [('"%s"' % col) for col in columns]
+
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS %s
             (%s)
@@ -15,6 +17,7 @@ class Sqlite(object):
         self.db.commit()
     
     def insert_rows(self, table_name, columns, rows):
+        columns = [('"%s"' % col) for col in columns]
         self.cursor.executemany('''
             INSERT INTO %s (%s)
             VALUES 

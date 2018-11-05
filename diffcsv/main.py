@@ -2,8 +2,8 @@ import sys
 import csv
 import argparse
 
-from diffcsv.read_csv import read_csv
-from diffcsv.database import Sqlite
+from read_csv import read_csv
+from database import Sqlite
 
 '''
 It's created to find differences between two csv files  
