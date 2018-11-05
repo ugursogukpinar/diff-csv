@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="diffcsv",
-    version="1.0",
+    version="1.1",
     author=u"Uğur Soğukpınar",
     author_email="sogukpinar.ugur@gmail.com",
     url="https://github.com/ugursogukpinar/diff-csv",
@@ -22,6 +22,6 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.5"
     ]
 )
