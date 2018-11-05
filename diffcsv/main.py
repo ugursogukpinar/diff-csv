@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
 import sys
 import csv
 import argparse
 
-from read_csv import read_csv
-from database import Sqlite
+from diffcsv.read_csv import read_csv
+from diffcsv.database import Sqlite
 
 '''
 It's created to find differences between two csv files  
