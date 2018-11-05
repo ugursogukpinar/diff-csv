@@ -5,6 +5,8 @@ import sqlite3
 class Sqlite(object):
     def __init__(self):
         self.db = sqlite3.connect(':memory:')
+        self.db.text_factory = str
+
         self.cursor = self.db.cursor()
 
 

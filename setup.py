@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="diffcsv",
-    version="1.3",
+    version="1.4",
     author=u"Uğur Soğukpınar",
     author_email="sogukpinar.ugur@gmail.com",
     url="https://github.com/ugursogukpinar/diff-csv",
