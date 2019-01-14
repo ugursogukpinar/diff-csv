@@ -24,22 +24,29 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key='ID', based_on=[]
     columns.append('DIFF_STATUS')
     writer.writerow(columns)
 
+    if not isinstance(primary_key, list):
+        primary_key = [primary_key]
+
+    join_string = ' AND '.join([ 'oc.{0} = nc.{0}'.format(pk) for pk in primary_key])
+
+    pk_is_null_string = ' AND '.join([ 'NC.{0} IS NULL'.format(pk) for pk in primary_key])
     # get rows which presents in old_csv but not in new_csv
     deleted_rows = db.execute('''
         select oc.* from old_csv oc
-        left join new_csv nc on (oc.{0} = nc.{0})
-        where NC.{0} is NULL
-    '''.format(primary_key))
+        left join new_csv nc on ({0})
+        where ({1})
+    '''.format(join_string, pk_is_null_string))
 
     for row in deleted_rows:
         writer.writerow(list(row) + ['DELETED'])
 
+    pk_is_null_string = ' AND '.join([ 'OC.{0} IS NULL'.format(pk) for pk in primary_key])
     # get rows which presents in new_csv but not in old_csv
     inserted_rows = db.execute('''
         select nc.* from new_csv nc
-        LEFT join old_csv oc on (nc.{0} = oc.{0})
-        where OC.{0} is NULL
-    '''.format(primary_key))
+        LEFT join old_csv oc on ({0})
+        where ({1})
+    '''.format(join_string, pk_is_null_string))
 
     for row in inserted_rows:
         writer.writerow(list(row) + ['INSERTED'])
@@ -49,11 +56,13 @@ def get_diff(old_csv_file_path, new_csv_file_path, primary_key='ID', based_on=[]
 
     compare_criteria = ['oc.{0} != nc.{0}'.format(based) for based in based_on]
 
+    pk_is_not_null_string = ' AND '.join([ 'OC.{0} IS NOT NULL'.format(pk) for pk in primary_key])
+
     altered_rows = db.execute('''
         select nc.* from new_csv nc
-        left join old_csv oc on (nc.{0} = oc.{0})
-        where oc.{0} IS NOT NULL and ({1})
-    '''.format(primary_key, ' OR '.join(compare_criteria)))
+        left join old_csv oc on ({0})
+        where ({1}) and ({2})
+    '''.format(join_string, pk_is_not_null_string, ' OR '.join(compare_criteria)))
 
     for row in altered_rows:
         writer.writerow(list(row) + ['UPDATED'])
@@ -73,7 +82,7 @@ def main():
 
     parser.add_argument('old_csv', type=str, help='Path of old csv file')
     parser.add_argument('new_csv', type=str, help='Path of new csv file')
-    parser.add_argument('--primary-key', type=str, help='Common key of two csv files')
+    parser.add_argument('--primary-key', type=str, ngargs='+', help='Common key of two csv files')
     parser.add_argument('--based-on', dest='based_on', nargs='+')
     parser.add_argument('--delimiter', type=str, help='Delimiter of csv files', default=',')
     args = parser.parse_args()
@@ -81,4 +90,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    #main()
+    get_diff("/home/ugursogukpinar/Downloads/sample-feed.csv", "/home/ugursogukpinar/Downloads/sample-feed.csv", primary_key=["PRODUCT_ID", "ITEM_SOURCE"], based_on=["ORDERABLE", "PRICE"])
