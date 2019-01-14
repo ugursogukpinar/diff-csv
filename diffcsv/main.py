@@ -82,7 +82,7 @@ def main():
 
     parser.add_argument('old_csv', type=str, help='Path of old csv file')
     parser.add_argument('new_csv', type=str, help='Path of new csv file')
-    parser.add_argument('--primary-key', type=str, ngargs='+', help='Common key of two csv files')
+    parser.add_argument('--primary-key', type=str, nargs='+', help='Common key of two csv files')
     parser.add_argument('--based-on', dest='based_on', nargs='+')
     parser.add_argument('--delimiter', type=str, help='Delimiter of csv files', default=',')
     args = parser.parse_args()
