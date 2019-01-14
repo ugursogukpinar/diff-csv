@@ -90,5 +90,4 @@ def main():
 
 
 if __name__ == '__main__':
-    #main()
-    get_diff("/home/ugursogukpinar/Downloads/sample-feed.csv", "/home/ugursogukpinar/Downloads/sample-feed.csv", primary_key=["PRODUCT_ID", "ITEM_SOURCE"], based_on=["ORDERABLE", "PRICE"])
+    main()
